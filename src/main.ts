@@ -318,7 +318,8 @@ export default class AttachmentNameFormatting extends Plugin {
 									`NoChange option enable, skip renaming ${item.link}`
 								);
 								continue;
-							} else if (this.settings.oneInMany === "Copy") {
+							//} else if (this.settings.oneInMany === "Copy") {
+							} else if (this.settings.oneInMany === "Copy" && path.dirname(item.link) != this.app.vault.getConfig('attachmentFolderPath')) {
 								console.log(
 									`Copy option enable, will copy ${item.link}`
 								);
@@ -558,7 +559,7 @@ export default class AttachmentNameFormatting extends Plugin {
 						if (this.renameCopyAttachment.hasOwnProperty(oldName)) {
 							handleCopyAttachment(editor, [
 								this.renameCopyAttachment[oldName],
-								path.basename(fullName),
+								fullName,
 							]);
 							delete this.renameCopyAttachment[oldName];
 						}

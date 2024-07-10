@@ -229,5 +229,13 @@ export function handleCopyAttachment(
 		newName = newName.replaceAll(" ", "%20");
 	}
 	data = data.replace(originName, newName);
+	
+	let CursorPlace = editor.getCursor();
 	editor.setValue(data);
+	try {
+		editor.setCursor(CursorPlace);
+	} catch (e) {
+		let lineContent = editor.getLine(CursorPlace.line);
+		editor.setCursor({ line: CursorPlace.line, ch: lineContent.length });
+	}
 }
